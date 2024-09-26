@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="pfcl-rpc" />
+        <module name="pfcl-domain" />
+        <module name="pfcl-application" />
+        <module name="lottery-domain" />
+        <module name="pfcl-common" />
+        <module name="pfcl-interfaces" />
+        <module name="lottery-interfaces" />
+        <module name="lottery-infrastructure" />
+        <module name="lottery-common" />
+        <module name="lottery-application" />
+        <module name="lottery-rpc" />
+        <module name="pfcl-infrastructure" />
+        <module name="Lottery-Test" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Lottery" options="-parameters" />
+      <module name="Lottery-Test" options="-parameters" />
+      <module name="lottery-application" options="-parameters" />
+      <module name="lottery-common" options="-parameters" />
+      <module name="lottery-domain" options="-parameters" />
+      <module name="lottery-infrastructure" options="-parameters" />
+      <module name="lottery-interfaces" options="-parameters" />
+      <module name="lottery-rpc" options="-parameters" />
+      <module name="pfcLottery" options="-parameters" />
+      <module name="pfcl-application" options="-parameters" />
+      <module name="pfcl-common" options="-parameters" />
+      <module name="pfcl-infrastructure" options="-parameters" />
+      <module name="pfcl-interfaces" options="-parameters" />
+      <module name="pfcl-rpc" options="-parameters" />
+    </option>
+  </component>
+</project>
