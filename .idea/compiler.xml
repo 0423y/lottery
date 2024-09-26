@@ -9,23 +9,21 @@
         <module name="pfcl-rpc" />
         <module name="pfcl-domain" />
         <module name="pfcl-application" />
-        <module name="lottery-domain" />
-        <module name="pfcl-common" />
-        <module name="pfcl-interfaces" />
-        <module name="lottery-interfaces" />
         <module name="lottery-infrastructure" />
         <module name="lottery-common" />
+        <module name="lottery-domain" />
+        <module name="pfcl-common" />
         <module name="lottery-application" />
         <module name="lottery-rpc" />
         <module name="pfcl-infrastructure" />
-        <module name="Lottery-Test" />
+        <module name="pfcl-interfaces" />
+        <module name="lottery-interfaces" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Lottery" options="-parameters" />
-      <module name="Lottery-Test" options="-parameters" />
       <module name="lottery-application" options="-parameters" />
       <module name="lottery-common" options="-parameters" />
       <module name="lottery-domain" options="-parameters" />
