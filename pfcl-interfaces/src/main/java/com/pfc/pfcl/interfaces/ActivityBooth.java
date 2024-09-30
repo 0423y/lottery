@@ -14,6 +14,9 @@ import org.apache.dubbo.config.annotation.Service;
 import javax.annotation.Resource;
 
 
+/**
+ * @author ypf
+ */
 @Service
 public class ActivityBooth implements IActivityBooth {
 
