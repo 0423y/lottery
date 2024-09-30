@@ -20,7 +20,6 @@
     </properties>
     <dependencies>
 
-
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
