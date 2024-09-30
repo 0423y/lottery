@@ -33,5 +33,4 @@
         WHERE activity_id = #{activityId}
     </select>
 
-
 </mapper>
