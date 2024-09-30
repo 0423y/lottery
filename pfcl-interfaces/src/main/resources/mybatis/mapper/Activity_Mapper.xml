@@ -19,19 +19,20 @@
 
     <insert id="insert" parameterType="com.pfc.pfcl.infrastructure.po.Activity">
         INSERT INTO activity
-        (activity_id, activity_name, activity_desc, begin_date_time, end_date_time,
-        stock_count, take_count, state, creator, create_time, update_time)
+        (activityId, activityName, activityDesc,beginDateTime, endDateTime,
+         stockCount, takeCount, state, creator, createTime, updateTime)
         VALUES
-        (#{activityId}, #{activityName}, #{activityDesc}, #{beginDateTime}, #{endDateTime},
-         #{stockCount}, #{takeCount}, #{state}, #{creator}, now(), now())
+            (#{activityId}, #{activityName}, #{activityDesc},#{beginDateTime}, #{endDateTime},
+             #{stockCount}, #{takeCount}, #{state}, #{creator}, now(), now())
     </insert>
 
     <select id="queryActivityById" parameterType="java.lang.Long" resultMap="activityMap">
-        SELECT activity_id, activity_name, activity_desc, begin_date_time, end_date_time,
-        stock_count, take_count, state, creator, create_time, update_time
+        SELECT activityId, activityName, activityDesc,beginDateTime, endDateTime,
+               stockCount, takeCount, state, creator, createTime, updateTime
         FROM activity
-        WHERE activity_id = #{activityId}
+        WHERE activityId = #{activityId}
     </select>
+
 
 
 </mapper>
