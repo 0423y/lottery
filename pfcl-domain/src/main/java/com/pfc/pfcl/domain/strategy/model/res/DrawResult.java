@@ -1,6 +1,9 @@
 package com.pfc.pfcl.domain.strategy.model.res;
 
 
+import com.pfc.pfcl.common.Constants;
+import com.pfc.pfcl.domain.strategy.model.vo.DrawAwardInfo;
+
 /**
  *抽奖结果
  *
@@ -14,20 +17,30 @@ public class DrawResult {
     // 策略ID
     private Long strategyId;
 
-    // 奖品ID
-    private String rewardId;
+    /**
+     * 中奖状态：0未中奖、1已中奖、2兜底奖 Constants.DrawState
+     */
+    private Integer drawState = Constants.DrawState.FAIL.getCode();
 
-    // 奖品名称
-    private String awardName;
+    /**
+     * 中奖奖品信息
+     */
+    private DrawAwardInfo drawAwardInfo;
 
     public DrawResult() {
     }
 
-    public DrawResult(String uId, Long strategyId, String rewardId, String awardName) {
+    public DrawResult(String uId, Long strategyId, Integer drawState) {
         this.uId = uId;
         this.strategyId = strategyId;
-        this.rewardId = rewardId;
-        this.awardName = awardName;
+        this.drawState=drawState;
+    }
+
+    public DrawResult(String uId, Long strategyId, Integer drawState, DrawAwardInfo drawAwardInfo) {
+        this.uId = uId;
+        this.strategyId = strategyId;
+        this.drawState = drawState;
+        this.drawAwardInfo = drawAwardInfo;
     }
 
     public String getuId() {
@@ -46,19 +59,20 @@ public class DrawResult {
         this.strategyId = strategyId;
     }
 
-    public String getRewardId() {
-        return rewardId;
+    public Integer getDrawState() {
+        return drawState;
     }
 
-    public void setRewardId(String rewardId) {
-        this.rewardId = rewardId;
+    public void setDrawState(Integer drawState) {
+        this.drawState = drawState;
     }
 
-    public String getAwardName() {
-        return awardName;
+    public DrawAwardInfo getDrawAwardInfo() {
+        return drawAwardInfo;
     }
 
-    public void setAwardName(String awardName) {
-        this.awardName = awardName;
+    public void setDrawAwardInfo(DrawAwardInfo drawAwardInfo) {
+        this.drawAwardInfo = drawAwardInfo;
     }
+
 }

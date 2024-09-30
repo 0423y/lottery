@@ -1,7 +1,7 @@
 package com.pfc.pfcl.domain.strategy.service.draw;
 
 
-
+import com.pfc.pfcl.common.Constants;
 import com.pfc.pfcl.domain.strategy.service.algorithm.IDrawAlgorithm;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
+ * @author ypf
  */
 public class DrawConfig {
 
@@ -20,12 +21,12 @@ public class DrawConfig {
     @Resource
     private IDrawAlgorithm singleRateRandomDrawAlgorithm;
 
-    protected static Map<Integer, IDrawAlgorithm> drawAlgorithmMap = new ConcurrentHashMap<>();
+    protected static Map<Integer, IDrawAlgorithm> drawAlgorithmGroup = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void init() {
-        drawAlgorithmMap.put(1, defaultRateRandomDrawAlgorithm);
-        drawAlgorithmMap.put(2, singleRateRandomDrawAlgorithm);
+        drawAlgorithmGroup.put(Constants.StrategyMode.ENTIRETY.getCode(), defaultRateRandomDrawAlgorithm);
+        drawAlgorithmGroup.put(Constants.StrategyMode.SINGLE.getCode(), singleRateRandomDrawAlgorithm);
     }
 
 }

@@ -33,6 +33,7 @@
       <module name="pfcLottery" options="-parameters" />
       <module name="pfcl-application" options="-parameters" />
       <module name="pfcl-common" options="-parameters" />
+      <module name="pfcl-domain" options="-parameters" />
       <module name="pfcl-infrastructure" options="-parameters" />
       <module name="pfcl-interfaces" options="-parameters" />
       <module name="pfcl-rpc" options="-parameters" />
