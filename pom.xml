@@ -21,7 +21,6 @@
 
 
 
-
     <properties>
         <!-- Base -->
         <jdk.version>1.8</jdk.version>
