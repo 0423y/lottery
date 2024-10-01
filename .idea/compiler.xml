@@ -24,14 +24,14 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Lottery" options="" />
+      <module name="Lottery" options="-parameters" />
       <module name="Lottery-Test" options="-parameters" />
-      <module name="lottery-application" options="" />
-      <module name="lottery-common" options="" />
-      <module name="lottery-domain" options="" />
-      <module name="lottery-infrastructure" options="" />
-      <module name="lottery-interfaces" options="" />
-      <module name="lottery-rpc" options="" />
+      <module name="lottery-application" options="-parameters" />
+      <module name="lottery-common" options="-parameters" />
+      <module name="lottery-domain" options="-parameters" />
+      <module name="lottery-infrastructure" options="-parameters" />
+      <module name="lottery-interfaces" options="-parameters" />
+      <module name="lottery-rpc" options="-parameters" />
       <module name="pfcLottery" options="-parameters" />
       <module name="pfcl-application" options="-parameters" />
       <module name="pfcl-common" options="-parameters" />

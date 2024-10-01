@@ -7,6 +7,7 @@ import com.pfc.pfcl.domain.strategy.model.vo.DrawAwardInfo;
 /**
  *抽奖结果
  *
+ * @author ypf
  */
 
 public class DrawResult {

@@ -5,6 +5,7 @@ package com.pfc.pfcl.domain.strategy.service.algorithm;
 import com.pfc.pfcl.domain.strategy.model.vo.AwardRateInfo;
 
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,10 +16,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public abstract class BaseAlgorithm implements IDrawAlgorithm {
 
-    // 斐波那契散列增量，逻辑：黄金分割点：(√5 - 1) / 2 = 0.6180339887，Math.pow(2, 32) * 0.6180339887 = 0x61c88647
+    /** 斐波那契散列增量，逻辑：黄金分割点：(√5 - 1) / 2 = 0.6180339887，Math.pow(2, 32) * 0.6180339887 = 0x61c88647*/
     private final int HASH_INCREMENT = 0x61c88647;
 
-    // 数组初始化长度
+    /** 数组初始化长度 128，保证数据填充时不发生碰撞的最小初始化值 */
     private final int RATE_TUPLE_LENGTH = 128;
 
     // 存放概率与奖品对应的散列结果，strategyId -> rateTuple
@@ -63,5 +64,15 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm {
         int hashCode = val * HASH_INCREMENT + HASH_INCREMENT;
         return hashCode & (RATE_TUPLE_LENGTH - 1);
     }
+
+    /**
+     * 生成百位随机抽奖码
+     *
+     * @return 随机值
+     */
+    protected int generateSecureRandomIntCode(int bound){
+        return new SecureRandom().nextInt(bound) + 1;
+    }
+
 
 }
