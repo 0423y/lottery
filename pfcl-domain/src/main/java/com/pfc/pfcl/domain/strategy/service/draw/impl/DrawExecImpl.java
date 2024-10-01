@@ -2,30 +2,21 @@ package com.pfc.pfcl.domain.strategy.service.draw.impl;
 
 
 import com.alibaba.fastjson.JSON;
-import com.pfc.pfcl.domain.strategy.model.aggregates.StrategyRich;
-import com.pfc.pfcl.domain.strategy.model.req.DrawReq;
-import com.pfc.pfcl.domain.strategy.model.res.DrawResult;
-import com.pfc.pfcl.domain.strategy.repository.IStrategyRepository;
+
 import com.pfc.pfcl.domain.strategy.service.algorithm.IDrawAlgorithm;
 import com.pfc.pfcl.domain.strategy.service.draw.AbstractDrawBase;
-import com.pfc.pfcl.domain.strategy.service.draw.DrawBase;
-import com.pfc.pfcl.domain.strategy.service.draw.IDrawExec;
-import com.pfc.pfcl.infrastructure.po.Award;
-import com.pfc.pfcl.infrastructure.po.Strategy;
-import com.pfc.pfcl.infrastructure.po.StrategyDetail;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.util.ArrayList;
+
 import java.util.List;
 
 
 /**
- * @description: 抽奖过程方法实现
  * @author ypf
- *
+ * @description: 抽奖过程方法实现
  */
 @Service("drawExec")
 public class DrawExecImpl extends AbstractDrawBase {
@@ -35,13 +26,13 @@ public class DrawExecImpl extends AbstractDrawBase {
 
     @Override
     protected List<String> queryExcludeAwardIds(Long strategyId) {
-        List<String> awardList=strategyRepository.queryNoStockStrategyAwardList(strategyId);
+        List<String> awardList = strategyRepository.queryNoStockStrategyAwardList(strategyId);
         logger.info("执行抽奖策略 strategyId：{}，无库存排除奖品列表ID集合 awardList：{}", strategyId, JSON.toJSONString(awardList));
         return awardList;
     }
 
     @Override
-    protected String drawAlgorithm(Long strategyId,IDrawAlgorithm drawAlgorithm,List<String> excludeAwardIds) {
+    protected String drawAlgorithm(Long strategyId, IDrawAlgorithm drawAlgorithm, List<String> excludeAwardIds) {
 
         // 执行抽奖
         String awardId = drawAlgorithm.randomDraw(strategyId, excludeAwardIds);
