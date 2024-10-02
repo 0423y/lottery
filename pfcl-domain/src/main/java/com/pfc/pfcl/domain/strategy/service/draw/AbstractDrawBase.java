@@ -68,6 +68,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
             awardRateInfoList.add(new AwardRateInfo(strategyDetail.getAwardId(), strategyDetail.getAwardRate()));
         }
 
+
         //非单项概率，不必存入缓存
         if (!Constants.StrategyMode.SINGLE.getCode().equals(strategyMode)) {
             drawAlgorithm.initAwardRateInfoMap(strategyId,awardRateInfoList);
