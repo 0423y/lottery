@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * 【推荐】单项随机概率抽奖，抽到一个已经排掉的奖品则未中奖
+ * @author ypf
  */
 @Component("singleRateRandomDrawAlgorithm")
 public class SingleRateRandomDrawAlgorithm extends BaseAlgorithm {

@@ -31,7 +31,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
         Strategy strategy = strategyRich.getStrategy();
 
         //2.校验抽奖策略是否已经初始化到内存
-        this.checkAndInitRateDate(req.getStrategyId(), strategy.getStrategyMode(), strategyRich.getStrategyDetailList());
+        this.checkAndInitRateData(req.getStrategyId(), strategy.getStrategyMode(), strategyRich.getStrategyDetailList());
 
         //3.获取不在抽奖范围内的列表，包括：奖品库存为空、风控策略、临时调整等
         List<String> excludeAwardIds = this.queryExcludeAwardIds(req.getStrategyId());
@@ -51,12 +51,9 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
      * @param strategyMode       抽奖策略模式
      * @param strategyDetailList 抽奖策略详情
      */
-    private void checkAndInitRateDate(Long strategyId, Integer strategyMode, List<StrategyDetail> strategyDetailList) {
+    private void checkAndInitRateData(Long strategyId, Integer strategyMode, List<StrategyDetail> strategyDetailList) {
 
-        //非单项概率，不必存入缓存
-        if (!Constants.StrategyMode.SINGLE.getCode().equals(strategyMode)) {
-            return;
-        }
+
 
         IDrawAlgorithm drawAlgorithm = drawAlgorithmGroup.get(strategyMode);
 
@@ -70,6 +67,14 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
         for (StrategyDetail strategyDetail : strategyDetailList) {
             awardRateInfoList.add(new AwardRateInfo(strategyDetail.getAwardId(), strategyDetail.getAwardRate()));
         }
+
+        //非单项概率，不必存入缓存
+        if (!Constants.StrategyMode.SINGLE.getCode().equals(strategyMode)) {
+            drawAlgorithm.initAwardRateInfoMap(strategyId,awardRateInfoList);
+            return;
+        }
+
+
         drawAlgorithm.initRateTuple(strategyId, awardRateInfoList);
     }
 

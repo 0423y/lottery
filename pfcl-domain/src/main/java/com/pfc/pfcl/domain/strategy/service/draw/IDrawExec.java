@@ -6,6 +6,7 @@ import com.pfc.pfcl.domain.strategy.model.res.DrawResult;
 
 /**
  对外提供的抽奖接口
+ * @author ypf
  */
 public interface IDrawExec {
 

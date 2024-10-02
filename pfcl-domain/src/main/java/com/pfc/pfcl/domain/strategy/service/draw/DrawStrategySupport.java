@@ -8,7 +8,8 @@ import com.pfc.pfcl.infrastructure.po.Award;
 import javax.annotation.Resource;
 
 /**
- * @description:抽奖策略的数据支持，一些通用的数据服务，通过继承该类使用其方法
+ * &#064;description:抽奖策略的数据支持，一些通用的数据服务，通过继承该类使用其方法
+ * @author ypf
  */
 public class DrawStrategySupport extends DrawConfig{
 

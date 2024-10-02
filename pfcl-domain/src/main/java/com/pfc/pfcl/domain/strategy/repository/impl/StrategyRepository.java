@@ -15,6 +15,9 @@ import javax.annotation.Resource;
 import java.util.List;
 
 
+/**
+ * @author ypf
+ */
 @Component
 public class StrategyRepository implements IStrategyRepository {
 

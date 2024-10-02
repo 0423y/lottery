@@ -34,6 +34,13 @@ public interface IDrawAlgorithm {
     void initRateTuple(Long strategyId, List<AwardRateInfo> awardRateInfoList);
 
     /**
+     * 保存奖品概率信息,存入缓存哈希表
+     * @param strategyId
+     * @param awardRateInfoList
+     */
+    void initAwardRateInfoMap(Long strategyId, List<AwardRateInfo> awardRateInfoList);
+
+    /**
      * 判断是否已经，做了数据初始化
      * @param strategyId
      * @return
@@ -48,5 +55,8 @@ public interface IDrawAlgorithm {
      * @return 中奖结果
      */
     String randomDraw(Long strategyId, List<String> excludeAwardIds);
+
+
+
 
 }
