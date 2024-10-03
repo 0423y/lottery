@@ -7,6 +7,10 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 
+/**
+ * @author ypf
+ * @description 策略明细表DAO
+ */
 @Mapper
 public interface IStrategyDetailDao {
 

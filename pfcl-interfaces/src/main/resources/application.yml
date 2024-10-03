@@ -5,7 +5,7 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/pfclottery?useUnicode=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/pfclottery?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:
@@ -17,8 +17,10 @@ dubbo:
   application:
     name: pfcLottery
     version: 1.0.0
+    parameters:
+      unicast: false
   registry:
-    address: N/A #multicast://224.5.6.7:1234
+    address: multicast://224.5.6.7:1234 #N/A
   protocol:
     name: dubbo
     port: 20880
