@@ -16,7 +16,7 @@
 
 
     <select id="queryStrategyDetailList" parameterType="java.lang.Long"
-            resultType="com.pfc.pfcl.infrastructure.po.StrategyDetail">
+            resultMap="strategyDetailMap">
         SELECT id,
                strategy_id,
                award_id,

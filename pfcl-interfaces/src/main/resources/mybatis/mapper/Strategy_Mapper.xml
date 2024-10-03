@@ -6,7 +6,7 @@
         <id column="id" property="id"/>
         <result column="strategy_id" property="strategyId"/>
         <result column="strategy_desc" property="strategyDesc"/>
-        <result column="strategy_mode" property="strategyMode"/>
+        <result column="strategy_mode" property="strategyMode" javaType="java.lang.Integer"/>
         <result column="grant_type" property="grantType"/>
         <result column="grant_date" property="grantDate"/>
         <result column="ext_info" property="extInfo"/>
@@ -15,7 +15,7 @@
     </resultMap>
 
 
-    <select id="queryStrategy" parameterType="java.lang.Long" resultType="com.pfc.pfcl.infrastructure.po.Strategy">
+    <select id="queryStrategy" parameterType="java.lang.Long" resultMap="strategyMap">
         SELECT id,
                strategy_id,
                strategy_desc,
