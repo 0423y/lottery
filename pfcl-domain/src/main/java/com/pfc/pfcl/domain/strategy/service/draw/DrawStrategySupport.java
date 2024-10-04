@@ -2,6 +2,7 @@ package com.pfc.pfcl.domain.strategy.service.draw;
 
 
 import com.pfc.pfcl.domain.strategy.model.aggregates.StrategyRich;
+import com.pfc.pfcl.domain.strategy.model.vo.AwardBriefVO;
 import com.pfc.pfcl.domain.strategy.repository.IStrategyRepository;
 import com.pfc.pfcl.infrastructure.po.Award;
 
@@ -26,7 +27,7 @@ public class DrawStrategySupport extends DrawConfig{
         return strategyRepository.queryStrategyRich(strategyId);
     }
 
-    protected Award queryAwardInfoByAwardId(String awardId){
+    protected AwardBriefVO queryAwardInfoByAwardId(String awardId){
         return strategyRepository.queryAwardInfo(awardId);
 
     }

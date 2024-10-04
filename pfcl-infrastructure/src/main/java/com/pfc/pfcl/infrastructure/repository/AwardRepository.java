@@ -1,4 +1,4 @@
-package com.pfc.pfcl.domain.award.repository.impl;
+package com.pfc.pfcl.infrastructure.repository;
 
 import com.pfc.pfcl.domain.award.repository.IAwardRepository;
 import org.springframework.stereotype.Component;
