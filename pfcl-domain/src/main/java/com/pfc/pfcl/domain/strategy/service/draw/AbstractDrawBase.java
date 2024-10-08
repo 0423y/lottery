@@ -7,7 +7,6 @@ import com.pfc.pfcl.domain.strategy.model.req.DrawReq;
 import com.pfc.pfcl.domain.strategy.model.res.DrawResult;
 import com.pfc.pfcl.domain.strategy.model.vo.*;
 import com.pfc.pfcl.domain.strategy.service.algorithm.IDrawAlgorithm;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

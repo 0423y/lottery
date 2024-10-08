@@ -1,11 +1,12 @@
 package com.pfc.pfcl.infrastructure.dao;
 
+import com.pfc.pfcl.domain.activity.model.vo.AlterStateVO;
 import com.pfc.pfcl.infrastructure.po.Activity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * @author: ypf
- * @description: 活动信息表DAO
+ * @author ypf
+ * @description 活动信息表DAO
  */
 @Mapper
 public interface IActivityDao {
@@ -24,4 +25,14 @@ public interface IActivityDao {
      */
     Activity queryActivityById(Long activityId);
 
+
+    /**
+     * 变更活动状态
+     *
+     * @param alterStateVO  [activityId、beforeState、afterState]
+     * @return 更新数量
+     */
+    int alterState(AlterStateVO alterStateVO);
+
 }
+

@@ -1,4 +1,4 @@
-package com.pfc.pfcl.test;
+package com.pfc.pfcl.test.domain;
 
 
 import com.pfc.pfcl.domain.strategy.model.vo.AwardRateInfo;
