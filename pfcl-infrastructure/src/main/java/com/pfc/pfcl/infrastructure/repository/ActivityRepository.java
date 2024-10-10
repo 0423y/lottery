@@ -66,8 +66,8 @@ public class ActivityRepository implements IActivityRepository {
             StrategyDetail strategyDetail = new StrategyDetail();
             BeanUtils.copyProperties(strategyDetailVO, strategyDetail);
             req.add(strategyDetail);
-            strategyDetailDao.insertList(req);
         }
+        strategyDetailDao.insertList(req);
     }
 
     @Override
