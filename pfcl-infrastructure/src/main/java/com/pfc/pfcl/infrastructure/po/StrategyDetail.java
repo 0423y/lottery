@@ -1,6 +1,7 @@
 package com.pfc.pfcl.infrastructure.po;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 /**
@@ -12,7 +13,7 @@ public class StrategyDetail {
     /**
      * 自增ID
      */
-    private String id;
+    private Long id;
 
     /**
      * 策略ID
@@ -47,18 +48,18 @@ public class StrategyDetail {
     /**
      * 创建时间
      */
-    private String createTime;
+    private Date createTime;
 
     /**
      * 修改时间
      */
-    private String updateTime;
+    private Date updateTime;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -110,19 +111,19 @@ public class StrategyDetail {
         this.awardRate = awardRate;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public String getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(String updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 }
