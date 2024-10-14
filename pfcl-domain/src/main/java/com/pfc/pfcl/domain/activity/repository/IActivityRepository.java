@@ -1,21 +1,20 @@
 package com.pfc.pfcl.domain.activity.repository;
 
 import com.pfc.pfcl.common.Constants;
-import com.pfc.pfcl.domain.activity.model.vo.ActivityVO;
-import com.pfc.pfcl.domain.activity.model.vo.AwardVO;
-import com.pfc.pfcl.domain.activity.model.vo.StrategyDetailVO;
-import com.pfc.pfcl.domain.activity.model.vo.StrategyVO;
+import com.pfc.pfcl.domain.activity.model.req.PartakeReq;
+import com.pfc.pfcl.domain.activity.model.vo.*;
 
 import java.util.List;
 
 /**
- * @description 活动仓库服务(活动表、奖品表、策略表、策略明细表)
  * @author ypf
+ * @description 活动仓库服务(活动表 、 奖品表 、 策略表 、 策略明细表)
  */
 public interface IActivityRepository {
 
     /**
      * 添加活动配置
+     *
      * @param activity 活动配置
      */
     void addActivity(ActivityVO activity);
@@ -44,11 +43,28 @@ public interface IActivityRepository {
     /**
      * 变更活动状态
      *
-     * @param activityId    活动ID
-     * @param beforeState   修改前状态
-     * @param afterState    修改后状态
-     * @return              更新结果
+     * @param activityId  活动ID
+     * @param beforeState 修改前状态
+     * @param afterState  修改后状态
+     * @return 更新结果
      */
     boolean alterStatus(Long activityId, Enum<Constants.ActivityState> beforeState, Enum<Constants.ActivityState> afterState);
+
+    /**
+     * 查询活动账单信息【库存、状态、日期、个人参与次数】
+     *
+     * @param req 参与活动请求
+     * @return 活动账单
+     */
+    ActivityBillVO queryActivityBill(PartakeReq req);
+
+    /**
+     * 扣减活动库存
+     *
+     * @param activityId 活动ID
+     * @return 扣减结果
+     */
+    int subtractionActivityStock(Long activityId);
+
 
 }

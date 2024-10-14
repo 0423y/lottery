@@ -1,16 +1,11 @@
 package com.pfc.pfcl.infrastructure.repository;
 
 import com.pfc.pfcl.common.Constants;
+import com.pfc.pfcl.domain.activity.model.req.PartakeReq;
 import com.pfc.pfcl.domain.activity.model.vo.*;
 import com.pfc.pfcl.domain.activity.repository.IActivityRepository;
-import com.pfc.pfcl.infrastructure.dao.IActivityDao;
-import com.pfc.pfcl.infrastructure.dao.IAwardDao;
-import com.pfc.pfcl.infrastructure.dao.IStrategyDao;
-import com.pfc.pfcl.infrastructure.dao.IStrategyDetailDao;
-import com.pfc.pfcl.infrastructure.po.Activity;
-import com.pfc.pfcl.infrastructure.po.Award;
-import com.pfc.pfcl.infrastructure.po.Strategy;
-import com.pfc.pfcl.infrastructure.po.StrategyDetail;
+import com.pfc.pfcl.infrastructure.dao.*;
+import com.pfc.pfcl.infrastructure.po.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +28,8 @@ public class ActivityRepository implements IActivityRepository {
     private IStrategyDao strategyDao;
     @Resource
     private IStrategyDetailDao strategyDetailDao;
-
+    @Resource
+    private IUserTakeActivityCountDao userTakeActivityCountDao;
     @Override
     public void addActivity(ActivityVO activity) {
         Activity req = new Activity();
@@ -75,6 +71,39 @@ public class ActivityRepository implements IActivityRepository {
         AlterStateVO alterStateVO = new AlterStateVO(activityId,((Constants.ActivityState) beforeState).getCode(),((Constants.ActivityState) afterState).getCode());
         int count = activityDao.alterState(alterStateVO);
         return 1 == count;
+    }
+
+    @Override
+    public ActivityBillVO queryActivityBill(PartakeReq req) {
+
+        // 查询活动信息
+        Activity activity = activityDao.queryActivityById(req.getActivityId());
+
+        // 查询领取次数
+        UserTakeActivityCount userTakeActivityCountReq = new UserTakeActivityCount();
+        userTakeActivityCountReq.setuId(req.getuId());
+        userTakeActivityCountReq.setActivityId(req.getActivityId());
+        UserTakeActivityCount userTakeActivityCount = userTakeActivityCountDao.queryUserTakeActivityCount(userTakeActivityCountReq);
+
+        // 封装结果信息
+        ActivityBillVO activityBillVO = new ActivityBillVO();
+        activityBillVO.setuId(req.getuId());
+        activityBillVO.setActivityId(req.getActivityId());
+        activityBillVO.setActivityName(activity.getActivityName());
+        activityBillVO.setBeginDateTime(activity.getBeginDateTime());
+        activityBillVO.setEndDateTime(activity.getEndDateTime());
+        activityBillVO.setTakeCount(activity.getTakeCount());
+        activityBillVO.setStockSurplusCount(activity.getStockSurplusCount());
+        activityBillVO.setStrategyId(activity.getStrategyId());
+        activityBillVO.setState(activity.getState());
+        activityBillVO.setUserTakeLeftCount(null == userTakeActivityCount ? null : userTakeActivityCount.getLeftCount());
+
+        return activityBillVO;
+    }
+
+    @Override
+    public int subtractionActivityStock(Long activityId) {
+        return activityDao.subtractionActivityStock(activityId);
     }
 
 }
