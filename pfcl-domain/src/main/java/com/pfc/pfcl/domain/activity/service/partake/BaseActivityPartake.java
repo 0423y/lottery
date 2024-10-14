@@ -23,7 +23,7 @@ public abstract class BaseActivityPartake extends ActivityPartakeSupport impleme
             return new PartakeResult(checkResult.getCode(), checkResult.getInfo());
         }
 
-        // 扣减活动库存【目前为直接对配置库中的 lottery.activity 直接操作表扣减库存，后续优化为Redis扣减】
+        // 扣减活动库存【目前为直接对配置库中的 pfclottery.activity 直接操作表扣减库存，后续优化为Redis扣减】
         Result subtractionActivityResult = this.subtractionActivityStock(req);
         if (!Constants.ResponseCode.SUCCESS.getCode().equals(subtractionActivityResult.getCode())) {
             return new PartakeResult(subtractionActivityResult.getCode(), subtractionActivityResult.getInfo());
