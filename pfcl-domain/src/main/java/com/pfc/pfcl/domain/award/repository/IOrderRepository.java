@@ -4,7 +4,7 @@ package com.pfc.pfcl.domain.award.repository;
  * @author ypf
  * @description 奖品表仓储服务接口
  */
-public interface IAwardRepository {
+public interface IOrderRepository {
 
     // TODO 对分库分表中的用户中奖纪录操作
 

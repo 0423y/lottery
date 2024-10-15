@@ -1,8 +1,12 @@
 package com.pfc.pfcl.infrastructure.repository;
 
+import com.pfc.pfcl.common.Constants;
+import com.pfc.pfcl.domain.activity.model.vo.DrawOrderVO;
 import com.pfc.pfcl.domain.activity.repository.IUserTakeActivityRepository;
+import com.pfc.pfcl.infrastructure.dao.IUserStrategyExportDao;
 import com.pfc.pfcl.infrastructure.dao.IUserTakeActivityCountDao;
 import com.pfc.pfcl.infrastructure.dao.IUserTakeActivityDao;
+import com.pfc.pfcl.infrastructure.po.UserStrategyExport;
 import com.pfc.pfcl.infrastructure.po.UserTakeActivity;
 import com.pfc.pfcl.infrastructure.po.UserTakeActivityCount;
 import org.springframework.stereotype.Component;
@@ -11,8 +15,8 @@ import javax.annotation.Resource;
 import java.util.Date;
 
 /**
- * @description 用户参与活动仓储
  * @author ypf
+ * @description 用户参与活动仓储
  */
 @Component
 public class UserTakeActivityRepository implements IUserTakeActivityRepository {
@@ -23,6 +27,8 @@ public class UserTakeActivityRepository implements IUserTakeActivityRepository {
     @Resource
     private IUserTakeActivityDao userTakeActivityDao;
 
+    @Resource
+    private IUserStrategyExportDao userStrategyExportDao;
 
     @Override
     public int subtractionLeftCount(Long activityId, String activityName, Integer takeCount, Integer userTakeLeftCount, String uId, Date partakeDate) {
@@ -53,12 +59,45 @@ public class UserTakeActivityRepository implements IUserTakeActivityRepository {
         if (null == userTakeLeftCount) {
             userTakeActivity.setTakeCount(1);
         } else {
-            userTakeActivity.setTakeCount(takeCount - userTakeLeftCount);
+            userTakeActivity.setTakeCount(takeCount - userTakeLeftCount+1);
         }
+        userTakeActivity.setState(Constants.TaskState.NO_USED.getCode());
         String uuid = uId + "_" + activityId + "_" + userTakeActivity.getTakeCount();
         userTakeActivity.setUuid(uuid);
 
         userTakeActivityDao.insert(userTakeActivity);
+    }
+
+    @Override
+    public int lockTackActivity(String uId, Long activityId, Long takeId) {
+        UserTakeActivity userTakeActivity = new UserTakeActivity();
+        userTakeActivity.setuId(uId);
+        userTakeActivity.setActivityId(activityId);
+        userTakeActivity.setTakeId(takeId);
+        return userTakeActivityDao.lockTackActivity(userTakeActivity);
+
+    }
+
+    @Override
+    public void saveUserStrategyExport(DrawOrderVO drawOrder) {
+
+        UserStrategyExport userStrategyExport = new UserStrategyExport();
+        userStrategyExport.setuId(drawOrder.getuId());
+        userStrategyExport.setActivityId(drawOrder.getActivityId());
+        userStrategyExport.setOrderId(drawOrder.getOrderId());
+        userStrategyExport.setStrategyId(drawOrder.getStrategyId());
+        userStrategyExport.setStrategyMode(drawOrder.getStrategyMode());
+        userStrategyExport.setGrantType(drawOrder.getGrantType());
+        userStrategyExport.setGrantDate(drawOrder.getGrantDate());
+        userStrategyExport.setGrantState(drawOrder.getGrantState());
+        userStrategyExport.setAwardId(drawOrder.getAwardId());
+        userStrategyExport.setAwardType(drawOrder.getAwardType());
+        userStrategyExport.setAwardName(drawOrder.getAwardName());
+        userStrategyExport.setAwardContent(drawOrder.getAwardContent());
+        userStrategyExport.setUuid(String.valueOf(drawOrder.getOrderId()));
+
+        userStrategyExportDao.insert(userStrategyExport);
+
     }
 
 }

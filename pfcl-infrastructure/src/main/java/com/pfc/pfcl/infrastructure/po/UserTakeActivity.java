@@ -49,6 +49,11 @@ public class UserTakeActivity {
      */
     private Date updateTime;
 
+    /**
+     * 活动单使用状态 0未使用、1已使用
+     * Constants.TaskState
+     */
+    private Integer state;
 
     public Long getId() {
         return id;
@@ -129,4 +134,13 @@ public class UserTakeActivity {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
 }

@@ -6,6 +6,7 @@ import com.pfc.pfcl.common.Constants;
 import com.pfc.pfcl.common.Result;
 import com.pfc.pfcl.domain.activity.model.req.PartakeReq;
 import com.pfc.pfcl.domain.activity.model.vo.ActivityBillVO;
+import com.pfc.pfcl.domain.activity.model.vo.DrawOrderVO;
 import com.pfc.pfcl.domain.activity.repository.IUserTakeActivityRepository;
 import com.pfc.pfcl.domain.activity.service.partake.BaseActivityPartake;
 import com.pfc.pfcl.domain.support.ids.IIdGenerator;
@@ -23,16 +24,12 @@ import java.util.Map;
  * @author ypf
  */
 @Service
-
 public class ActivityPartakeImpl extends BaseActivityPartake {
 
     private Logger logger = LoggerFactory.getLogger(ActivityPartakeImpl.class);
 
     @Resource
     private IUserTakeActivityRepository userTakeActivityRepository;
-
-    @Resource
-    private Map<Constants.Ids, IIdGenerator> idGeneratorMap;
 
     @Resource
     private TransactionTemplate transactionTemplate;
@@ -61,7 +58,7 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
         }
 
         // 校验：个人库存 - 个人活动剩余可领取次数
-        if (bill.getUserTakeLeftCount() <= 0) {
+        if (null != bill.getUserTakeLeftCount() && bill.getUserTakeLeftCount() <= 0) {
             logger.warn("个人领取次数非可用 userTakeLeftCount：{}", bill.getUserTakeLeftCount());
             return Result.buildResult(Constants.ResponseCode.UN_ERROR, "个人领取次数非可用");
         }
@@ -80,7 +77,7 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
     }
 
     @Override
-    protected Result grabActivity(PartakeReq partake, ActivityBillVO bill) {
+    protected Result grabActivity(PartakeReq partake, ActivityBillVO bill, Long takeId) {
         try {
             dbRouter.doRouter(partake.getuId());
             return transactionTemplate.execute(status -> {
@@ -93,8 +90,7 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
                         return Result.buildResult(Constants.ResponseCode.NO_UPDATE);
                     }
 
-                    // 插入领取活动信息
-                    Long takeId = idGeneratorMap.get(Constants.Ids.SnowFlake).nextId();
+                    // 写入领取活动记录
                     userTakeActivityRepository.takeActivity(bill.getActivityId(), bill.getActivityName(), bill.getTakeCount(), bill.getUserTakeLeftCount(), partake.getuId(), partake.getPartakeDate(), takeId);
                 } catch (DuplicateKeyException e) {
                     status.setRollbackOnly();
@@ -106,6 +102,35 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
         } finally {
             dbRouter.clear();
         }
+    }
+
+    @Override
+    public Result recordDrawOrder(DrawOrderVO drawOrder) {
+        try {
+            dbRouter.doRouter(drawOrder.getuId());
+            return transactionTemplate.execute(status -> {
+                try {
+                    // 锁定活动领取记录
+                    int lockCount = userTakeActivityRepository.lockTackActivity(drawOrder.getuId(), drawOrder.getActivityId(), drawOrder.getTakeId());
+                    if (0 == lockCount) {
+                        status.setRollbackOnly();
+                        logger.error("记录中奖单，个人参与活动抽奖已消耗完 activityId：{} uId：{}", drawOrder.getActivityId(), drawOrder.getuId());
+                        return Result.buildResult(Constants.ResponseCode.NO_UPDATE);
+                    }
+
+                    // 保存抽奖信息
+                    userTakeActivityRepository.saveUserStrategyExport(drawOrder);
+                } catch (DuplicateKeyException e) {
+                    status.setRollbackOnly();
+                    logger.error("记录中奖单，唯一索引冲突 activityId：{} uId：{}", drawOrder.getActivityId(), drawOrder.getuId(), e);
+                    return Result.buildResult(Constants.ResponseCode.INDEX_DUP);
+                }
+                return Result.buildSuccessResult();
+            });
+        } finally {
+            dbRouter.clear();
+        }
+
     }
 
 }
