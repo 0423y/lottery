@@ -55,6 +55,11 @@ public class UserTakeActivity {
      */
     private Integer state;
 
+    /**
+     * 策略ID
+     */
+    private Long strategyId;
+
     public Long getId() {
         return id;
     }
@@ -141,6 +146,14 @@ public class UserTakeActivity {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public Long getStrategyId() {
+        return strategyId;
+    }
+
+    public void setStrategyId(Long strategyId) {
+        this.strategyId = strategyId;
     }
 
 }

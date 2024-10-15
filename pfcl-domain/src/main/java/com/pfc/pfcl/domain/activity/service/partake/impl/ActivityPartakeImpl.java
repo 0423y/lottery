@@ -7,6 +7,7 @@ import com.pfc.pfcl.common.Result;
 import com.pfc.pfcl.domain.activity.model.req.PartakeReq;
 import com.pfc.pfcl.domain.activity.model.vo.ActivityBillVO;
 import com.pfc.pfcl.domain.activity.model.vo.DrawOrderVO;
+import com.pfc.pfcl.domain.activity.model.vo.UserTakeActivityVO;
 import com.pfc.pfcl.domain.activity.repository.IUserTakeActivityRepository;
 import com.pfc.pfcl.domain.activity.service.partake.BaseActivityPartake;
 import com.pfc.pfcl.domain.support.ids.IIdGenerator;
@@ -91,7 +92,7 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
                     }
 
                     // 写入领取活动记录
-                    userTakeActivityRepository.takeActivity(bill.getActivityId(), bill.getActivityName(), bill.getTakeCount(), bill.getUserTakeLeftCount(), partake.getuId(), partake.getPartakeDate(), takeId);
+                    userTakeActivityRepository.takeActivity(bill.getActivityId(), bill.getActivityName(), bill.getStrategyId(),bill.getTakeCount(), bill.getUserTakeLeftCount(), partake.getuId(), partake.getPartakeDate(), takeId);
                 } catch (DuplicateKeyException e) {
                     status.setRollbackOnly();
                     logger.error("领取活动，唯一索引冲突 activityId：{} uId：{}", partake.getActivityId(), partake.getuId(), e);
@@ -131,6 +132,11 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
             dbRouter.clear();
         }
 
+    }
+
+    @Override
+    protected UserTakeActivityVO queryNoConsumedTakeActivityOrder(Long activityId, String uId) {
+        return userTakeActivityRepository.queryNoConsumedTakeActivityOrder(activityId, uId);
     }
 
 }

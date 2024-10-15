@@ -2,6 +2,7 @@ package com.pfc.pfcl.infrastructure.repository;
 
 import com.pfc.pfcl.common.Constants;
 import com.pfc.pfcl.domain.activity.model.vo.DrawOrderVO;
+import com.pfc.pfcl.domain.activity.model.vo.UserTakeActivityVO;
 import com.pfc.pfcl.domain.activity.repository.IUserTakeActivityRepository;
 import com.pfc.pfcl.infrastructure.dao.IUserStrategyExportDao;
 import com.pfc.pfcl.infrastructure.dao.IUserTakeActivityCountDao;
@@ -49,7 +50,7 @@ public class UserTakeActivityRepository implements IUserTakeActivityRepository {
     }
 
     @Override
-    public void takeActivity(Long activityId, String activityName, Integer takeCount, Integer userTakeLeftCount, String uId, Date takeDate, Long takeId) {
+    public void takeActivity(Long activityId, String activityName, Long strategyId, Integer takeCount, Integer userTakeLeftCount, String uId, Date takeDate, Long takeId) {
         UserTakeActivity userTakeActivity = new UserTakeActivity();
         userTakeActivity.setuId(uId);
         userTakeActivity.setTakeId(takeId);
@@ -61,6 +62,7 @@ public class UserTakeActivityRepository implements IUserTakeActivityRepository {
         } else {
             userTakeActivity.setTakeCount(takeCount - userTakeLeftCount+1);
         }
+        userTakeActivity.setStrategyId(strategyId);
         userTakeActivity.setState(Constants.TaskState.NO_USED.getCode());
         String uuid = uId + "_" + activityId + "_" + userTakeActivity.getTakeCount();
         userTakeActivity.setUuid(uuid);
@@ -98,6 +100,28 @@ public class UserTakeActivityRepository implements IUserTakeActivityRepository {
 
         userStrategyExportDao.insert(userStrategyExport);
 
+    }
+
+    @Override
+    public UserTakeActivityVO queryNoConsumedTakeActivityOrder(Long activityId, String uId) {
+
+        UserTakeActivity userTakeActivity = new UserTakeActivity();
+        userTakeActivity.setuId(uId);
+        userTakeActivity.setActivityId(activityId);
+        UserTakeActivity noConsumedTakeActivityOrder = userTakeActivityDao.queryNoConsumedTakeActivityOrder(userTakeActivity);
+
+        // 未查询到符合的领取单，直接返回 NULL
+        if (null == noConsumedTakeActivityOrder) {
+            return null;
+        }
+
+        UserTakeActivityVO userTakeActivityVO = new UserTakeActivityVO();
+        userTakeActivityVO.setActivityId(noConsumedTakeActivityOrder.getActivityId());
+        userTakeActivityVO.setTakeId(noConsumedTakeActivityOrder.getTakeId());
+        userTakeActivityVO.setStrategyId(noConsumedTakeActivityOrder.getStrategyId());
+        userTakeActivityVO.setState(noConsumedTakeActivityOrder.getState());
+
+        return userTakeActivityVO;
     }
 
 }
