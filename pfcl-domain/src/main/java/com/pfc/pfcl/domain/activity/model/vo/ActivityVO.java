@@ -54,6 +54,11 @@ public class ActivityVO {
      */
     private String creator;
 
+    /**
+     * 策略ID
+     */
+    private Long strategyId;
+
     public Long getActivityId() {
         return activityId;
     }
@@ -126,6 +131,14 @@ public class ActivityVO {
         this.creator = creator;
     }
 
+    public Long getStrategyId() {
+        return strategyId;
+    }
+
+    public void setStrategyId(Long strategyId) {
+        this.strategyId = strategyId;
+    }
+
     @Override
     public String toString() {
         return "ActivityVO{" +
@@ -136,6 +149,7 @@ public class ActivityVO {
                 ", endDateTime=" + endDateTime +
                 ", stockCount=" + stockCount +
                 ", takeCount=" + takeCount +
+                ", strategyId=" + strategyId +
                 ", state=" + state +
                 ", creator='" + creator + '\'' +
                 '}';
