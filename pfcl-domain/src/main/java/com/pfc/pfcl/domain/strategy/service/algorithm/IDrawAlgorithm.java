@@ -2,7 +2,7 @@ package com.pfc.pfcl.domain.strategy.service.algorithm;
 
 
 
-import com.pfc.pfcl.domain.strategy.model.vo.AwardRateInfo;
+import com.pfc.pfcl.domain.strategy.model.vo.AwardRateVO;
 
 import java.util.List;
 
@@ -29,16 +29,16 @@ public interface IDrawAlgorithm {
      * 5. 当后续通过随机数获取到1-100的值后，可以直接定位到对应的奖品信息，通过这样的方式把轮训算奖的时间复杂度从O(n) 降低到 0(1)
      *
      * @param strategyId        策略ID
-     * @param awardRateInfoList 奖品概率配置集合 「值示例：AwardRateInfo.awardRate = 0.04」
+     * @param awardRateVOList 奖品概率配置集合 「值示例：AwardRateVO.awardRate = 0.04」
      */
-    void initRateTuple(Long strategyId, List<AwardRateInfo> awardRateInfoList);
+    void initRateTuple(Long strategyId, List<AwardRateVO> awardRateVOList);
 
     /**
      * 保存奖品概率信息,存入缓存哈希表
      * @param strategyId
-     * @param awardRateInfoList
+     * @param awardRateVOList
      */
-    void initAwardRateInfoMap(Long strategyId, List<AwardRateInfo> awardRateInfoList);
+    void initAwardRateInfoMap(Long strategyId, List<AwardRateVO> awardRateVOList);
 
     /**
      * 判断是否已经，做了数据初始化

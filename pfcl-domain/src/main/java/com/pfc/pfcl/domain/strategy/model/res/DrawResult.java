@@ -2,7 +2,7 @@ package com.pfc.pfcl.domain.strategy.model.res;
 
 
 import com.pfc.pfcl.common.Constants;
-import com.pfc.pfcl.domain.strategy.model.vo.DrawAwardInfo;
+import com.pfc.pfcl.domain.strategy.model.vo.DrawAwardVO;
 
 /**
  *抽奖结果
@@ -26,7 +26,7 @@ public class DrawResult {
     /**
      * 中奖奖品信息
      */
-    private DrawAwardInfo drawAwardInfo;
+    private DrawAwardVO drawAwardVO;
 
     public DrawResult() {
     }
@@ -37,11 +37,11 @@ public class DrawResult {
         this.drawState=drawState;
     }
 
-    public DrawResult(String uId, Long strategyId, Integer drawState, DrawAwardInfo drawAwardInfo) {
+    public DrawResult(String uId, Long strategyId, Integer drawState, DrawAwardVO drawAwardVO) {
         this.uId = uId;
         this.strategyId = strategyId;
         this.drawState = drawState;
-        this.drawAwardInfo = drawAwardInfo;
+        this.drawAwardVO = drawAwardVO;
     }
 
     public String getuId() {
@@ -68,12 +68,12 @@ public class DrawResult {
         this.drawState = drawState;
     }
 
-    public DrawAwardInfo getDrawAwardInfo() {
-        return drawAwardInfo;
+    public DrawAwardVO getDrawAwardInfo() {
+        return drawAwardVO;
     }
 
-    public void setDrawAwardInfo(DrawAwardInfo drawAwardInfo) {
-        this.drawAwardInfo = drawAwardInfo;
+    public void setDrawAwardInfo(DrawAwardVO drawAwardVO) {
+        this.drawAwardVO = drawAwardVO;
     }
 
 }

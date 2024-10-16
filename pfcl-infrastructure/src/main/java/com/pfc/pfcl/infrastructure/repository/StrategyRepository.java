@@ -14,6 +14,7 @@ import com.pfc.pfcl.infrastructure.po.Strategy;
 import com.pfc.pfcl.infrastructure.po.StrategyDetail;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import java.util.List;
  * @author ypf
  * @description 策略表仓储服务
  */
-@Component
+@Repository
 public class StrategyRepository implements IStrategyRepository {
 
     @Resource

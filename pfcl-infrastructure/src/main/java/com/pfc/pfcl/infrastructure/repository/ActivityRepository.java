@@ -8,6 +8,7 @@ import com.pfc.pfcl.infrastructure.dao.*;
 import com.pfc.pfcl.infrastructure.po.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.List;
  * @description 活动表仓储服务
  * @author ypf
  */
-@Component
+@Repository
 public class ActivityRepository implements IActivityRepository {
 
     @Resource

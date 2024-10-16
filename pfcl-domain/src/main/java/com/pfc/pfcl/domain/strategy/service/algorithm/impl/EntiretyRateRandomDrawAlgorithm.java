@@ -1,7 +1,7 @@
 package com.pfc.pfcl.domain.strategy.service.algorithm.impl;
 
 
-import com.pfc.pfcl.domain.strategy.model.vo.AwardRateInfo;
+import com.pfc.pfcl.domain.strategy.model.vo.AwardRateVO;
 import com.pfc.pfcl.domain.strategy.service.algorithm.BaseAlgorithm;
 import org.springframework.stereotype.Component;
 
@@ -22,15 +22,15 @@ public class EntiretyRateRandomDrawAlgorithm extends BaseAlgorithm {
         BigDecimal differenceDenominator = BigDecimal.ZERO;
 
         // 排除掉不在抽奖范围的奖品ID集合
-        List<AwardRateInfo> differenceAwardRateList = new ArrayList<>();
-        List<AwardRateInfo> awardRateIntervalValList = awardRateInfoMap.get(strategyId);
-        for (AwardRateInfo awardRateInfo : awardRateIntervalValList) {
-            String awardId = awardRateInfo.getAwardId();
+        List<AwardRateVO> differenceAwardRateList = new ArrayList<>();
+        List<AwardRateVO> awardRateIntervalValList = awardRateInfoMap.get(strategyId);
+        for (AwardRateVO awardRateVO : awardRateIntervalValList) {
+            String awardId = awardRateVO.getAwardId();
             if (excludeAwardIds.contains(awardId)) {
                 continue;
             }
-            differenceAwardRateList.add(awardRateInfo);
-            differenceDenominator = differenceDenominator.add(awardRateInfo.getAwardRate());
+            differenceAwardRateList.add(awardRateVO);
+            differenceDenominator = differenceDenominator.add(awardRateVO.getAwardRate());
         }
 
         // 前置判断：奖品列表为0，返回NULL
@@ -49,10 +49,10 @@ public class EntiretyRateRandomDrawAlgorithm extends BaseAlgorithm {
         // 循环获取奖品
         String awardId = null;
         int cursorVal = 0;
-        for (AwardRateInfo awardRateInfo : differenceAwardRateList) {
-            int rateVal = awardRateInfo.getAwardRate().divide(differenceDenominator, 2, BigDecimal.ROUND_UP).multiply(new BigDecimal(100)).intValue();
+        for (AwardRateVO awardRateVO : differenceAwardRateList) {
+            int rateVal = awardRateVO.getAwardRate().divide(differenceDenominator, 2, BigDecimal.ROUND_UP).multiply(new BigDecimal(100)).intValue();
             if (randomVal <= (cursorVal + rateVal)) {
-                awardId = awardRateInfo.getAwardId();
+                awardId = awardRateVO.getAwardId();
                 break;
             }
             cursorVal += rateVal;
